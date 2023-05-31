@@ -11,7 +11,7 @@
     }
 }  */
 
-/*function session_set(){ //세션 저장(객체)    
+function session_set(){ //세션 저장(객체)    
     let id = document.querySelector("#floatingInput");
     let password = document.querySelector("#floatingPassword");
     let random = new Date(); // 랜덤 타임스탬프
@@ -29,7 +29,7 @@
     } else {
         alert("세션 스토리지 지원 x");
     }   
-}*/
+}
 
 function session_join_set(){ //세션 저장(객체)    
     let f_name = document.querySelector("#firstName").value;
