@@ -12,6 +12,20 @@ addJavascript('/js/cookie.js'); // 쿠키 함수
 
 
 
+function init(){ // 로그인 폼에 쿠키에서 가져온 아이디 입력
+    let id = document.querySelector("#floatingInput");
+    let check = document.querySelector("#idSaveCheck");
+    let get_id = getCookie("id");
+
+	
+  if(get_id) { 
+    id.value = get_id; 
+    check.checked = true; 
+    }
+	session_check(); // 세션 유무 검사
+}
+	
+
 function login(){
     let form = document.querySelector("#form_main");
     let id = document.querySelector("#floatingInput");
@@ -36,16 +50,37 @@ function login(){
     if(id.value.length === 0 || password.value.length === 0){
         alert("아이디와 비밀번호를 모두 입력해주세요.");
     }else{
+		 if(login_check()){
 		session_set(); //세션 생성
         form.submit();
     }
 }
-
+}
 function logout(){
 	session_del(); //세션 삭제
     location.href='../index.html';
 }
 
+function login_check(){
+    let id = document.querySelector("#floatingInput");
+    let password = document.querySelector("#floatingPassword");
+    
+    let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+    let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+    if(regex.test(id.value)){
+    	if(reg.test(password.value)){
+            return true;
+        }
+        else{
+            alert("영문 숫자 특수기호 조합 8자리 이상으로 비밀번호를 입력해주세요.");
+            return false;
+            }
+    }
+    else{
+        alert("@example.com 이메일 주소를 포함해서 입력해주세요");
+        return false;
+        }
+}
 
 
 function get_id(){
